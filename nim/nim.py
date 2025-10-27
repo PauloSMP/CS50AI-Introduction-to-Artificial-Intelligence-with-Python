@@ -3,7 +3,7 @@ import random
 import time
 
 
-class Nim():
+class Nim:
 
     def __init__(self, initial=[1, 3, 5, 7]):
         """
@@ -70,7 +70,7 @@ class Nim():
             self.winner = self.player
 
 
-class NimAI():
+class NimAI:
 
     def __init__(self, alpha=0.5, epsilon=0.1):
         """
@@ -102,7 +102,7 @@ class NimAI():
         If no Q-value exists yet in `self.q`, return 0.
         """
         if (tuple(state), tuple(action)) in self.q:
-            return self.q[(tuple(state), tuple(action))]            
+            return self.q[(tuple(state), tuple(action))]
         else:
             return 0
 
@@ -121,9 +121,11 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        #Q(s, a) <- old + alfa * (new_value_estimate - old_value_estimate)
+        # Q(s, a) <- old + alfa * (new_value_estimate - old_value_estimate)
         new_value_estimate = reward + future_rewards
-        self.q[tuple(state), tuple(action)] = old_q + self.alpha * (new_value_estimate - old_q)
+        self.q[tuple(state), tuple(action)] = old_q + self.alpha * (
+            new_value_estimate - old_q
+        )
 
     def best_future_reward(self, state):
         """
@@ -161,11 +163,11 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        
+
         possible_actions = Nim.available_actions(state)
-        if epsilon and random.random() < self.epsilon: #Exploration
+        if epsilon and random.random() < self.epsilon:  # Exploration
             return random.choice(list(possible_actions))
-        else: #Exploitation
+        else:  # Exploitation
             max_q_value = float("-inf")
             best_action = []
             for action in possible_actions:
@@ -175,15 +177,13 @@ class NimAI():
                     best_action = [action]
                 elif q_value == max_q_value:
                     best_action.append(action)
-            
+
             if len(best_action) == 1:
                 return best_action[0]
             elif len(best_action) > 1:
                 return random.choice(best_action)
             else:
                 return None
-                
-            
 
 
 def train(n):
@@ -199,10 +199,7 @@ def train(n):
         game = Nim()
 
         # Keep track of last move made by either player
-        last = {
-            0: {"state": None, "action": None},
-            1: {"state": None, "action": None}
-        }
+        last = {0: {"state": None, "action": None}, 1: {"state": None, "action": None}}
 
         # Game loop
         while True:
@@ -226,7 +223,7 @@ def train(n):
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,
-                    1
+                    1,
                 )
                 break
 
@@ -236,7 +233,7 @@ def train(n):
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,
-                    0
+                    0,
                 )
 
     print("Done training")
