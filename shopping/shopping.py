@@ -3,6 +3,9 @@ import sys
 
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+import pandas as pd
+import numpy as np
+import csv
 
 TEST_SIZE = 0.4
 
@@ -59,15 +62,52 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-    raise NotImplementedError
+    df = pd.read_csv(filename, delimiter=",", header=0)
+    # print (df.shape)
+    # prints - (12330, 18)
+    # Column 18 is 'Revenue' - the label
+    evidence = df.iloc[:, :-1]
+    labels = df.iloc[:, -1]
+    #print (evidence.head()) #- Check ok
+    #print (labels.head()) #- Check ok
 
+    #Process evidence data
+    evidence["Administrative"] = evidence["Administrative"].astype(int)
+    evidence["Administrative_Duration"] = evidence["Administrative_Duration"].astype(float)
+    evidence["Informational"] = evidence["Informational"].astype(int)
+    evidence["Informational_Duration"] = evidence["Informational_Duration"].astype(float)
+    evidence["ProductRelated"] = evidence["ProductRelated"].astype(int)
+    evidence["ProductRelated_Duration"] = evidence["ProductRelated_Duration"].astype(float)
+    evidence["BounceRates"] = evidence["BounceRates"].astype(float)
+    evidence["ExitRates"] = evidence["ExitRates"].astype(float)
+    evidence["PageValues"] = evidence["PageValues"].astype(float)
+    evidence["SpecialDay"] = evidence["SpecialDay"].astype(float)
+    month_mapping = {
+        "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3, "May": 4, "June": 5, "Jul": 6,
+        "Aug": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
+    }
+    evidence["Month"] = evidence["Month"].map(month_mapping)
+    evidence["OperatingSystems"] = evidence["OperatingSystems"].astype(int)
+    evidence["Browser"] = evidence["Browser"].astype(int)
+    evidence["Region"] = evidence["Region"].astype(int)
+    evidence["TrafficType"] = evidence["TrafficType"].astype(int)
+    evidence["VisitorType"] = evidence["VisitorType"].apply(lambda x: 1 if x == "Returning_Visitor" else 0)
+    evidence["Weekend"] = evidence["Weekend"]. apply(lambda x: 1 if x == True else 0)
+    
+    labels = labels.apply(lambda x: 1 if x == True else 0)
+        
+    evidence = evidence.values.tolist()
+    labels = labels.values.tolist()
+    return (evidence, labels)
 
 def train_model(evidence, labels):
     """
     Given a list of evidence lists and a list of labels, return a
     fitted k-nearest neighbor model (k=1) trained on the data.
     """
-    raise NotImplementedError
+    model = KNeighborsClassifier(n_neighbors=1)
+    model.fit(evidence, labels)
+    return model
 
 
 def evaluate(labels, predictions):
@@ -85,7 +125,15 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    raise NotImplementedError
+    true_positives = sum(1 for actual, predicted in zip(labels, predictions) if actual == 1 and predicted == 1)
+    true_negatives = sum(1 for actual, predicted in zip(labels, predictions) if actual == 0 and predicted == 0)
+    total_positives = sum(1 for actual in labels if actual == 1)
+    total_negatives = sum(1 for actual in labels if actual == 0)
+    
+    sensitivity = float(true_positives / total_positives) if total_positives > 0 else 0.0
+    specificity = float(true_negatives / total_negatives) if total_negatives > 0 else 0.0
+    return (sensitivity, specificity)
+    
 
 
 if __name__ == "__main__":
