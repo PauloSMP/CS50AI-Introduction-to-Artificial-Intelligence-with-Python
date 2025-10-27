@@ -17,6 +17,34 @@ It contains implementations and projects covering various AI concepts, divided b
 
 ---
 
-## About
+## Uncertainty
 
-This coursework highlights the foundations of AI, including **Search Algorithms**, **Knowledge Representation**, and **game-playing strategies**. Future updates will include other projects from the course such as **Uncertainty**, **Optimization**, **Learning**, **Neural Networks**, **Language** and **ACE Recommendation**.
+- **PageRank**: Models and ranks nodes on a graph according to their relative importance, foundational for search engine algorithms and probabilistic reasoning.
+- **Heredity**: Looks into probabilistic models for heredity/genetics, applying Bayesian inference and uncertain knowledge representation.
+
+---
+
+## Optimization
+
+- **Crossword**: Uses constraint satisfaction and backtracking algorithms to fill crossword puzzles, demonstrating optimization and search in combinatorial spaces.
+
+---
+
+## Learning
+
+- **Shopping**: A supervised learning project using K-nearest neighbors (KNN) applying machine learning techniques to consumer data.
+- **Nim**: Implements a Q-learning agent to play the Nim game, utilizing reinforcement learning techniques like Q-value updates and epsilon-greedy action selection for game playing and policy learning.
+
+---
+
+## Neural Networks
+
+- **Traffic**:
+
+---
+
+## Language
+
+- **Parser**:
+- **Attntion**:
+
