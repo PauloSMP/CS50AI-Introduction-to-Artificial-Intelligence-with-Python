@@ -62,9 +62,17 @@ def load_data(data_dir):
     #cv2.imshow("Canvas Output", img)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
-    
-    raise NotImplementedError
-
+    images = []
+    labels = []
+    for folder_num in range(NUM_CATEGORIES):
+        folder_path = os.path.join(data_dir, str(folder_num))
+        files = sorted(os.listdir(folder_path))
+        for file in files:
+            img = cv2.imread(os.path.join(folder_path, file))
+            resized_img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
+            images.append(resized_img)
+            labels.append(folder_num)
+    return images, labels
 
 def get_model():
     """
