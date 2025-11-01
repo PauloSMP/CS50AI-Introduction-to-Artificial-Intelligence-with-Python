@@ -5,3 +5,11 @@ scheduling
 traffic/gtsrb
 traffic/requirements.txt
 traffic/README.mkd
+traffic/imgmodel_v2.h5
+traffic/imgmodel_v3.h5
+traffic/imgmodel_v4.h5
+traffic/imgmodel_v5.h5
+traffic/imgmodel_v6.h5
+traffic/imgmodel_v7.h5
+traffic/imgmodel_v8.h5
+traffic/imgmodel_v9.h5
