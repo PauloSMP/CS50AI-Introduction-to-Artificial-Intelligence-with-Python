@@ -39,12 +39,14 @@ It contains implementations and projects covering various AI concepts, divided b
 
 ## Neural Networks
 
-- **Traffic**:
+- **Traffic**: The Traffic project uses a convolutional neural network (CNN) to classify German traffic sign images from the GTSRB dataset. The model takes resized sign images as input and predicts their type, demonstrating practical deep learning for visual classification
 
 ---
 
 ## Language
 
-- **Parser**:
-- **Attntion**:
+- **Parser**: The Parser project implements a context-free grammar using NLTK to parse English sentences and extract noun phrases. It identifies sentence structure and finds all minimal noun phrase chunks for information extraction, demonstrating syntactic analysis in natural language processing.
+
+
+- **Attntion**: The Attention project uses BERT and the transformers library to predict masked words in text and visualize attention scores from all self-attention heads. It demonstrates how transformer-based models leverage context and internal attention mechanisms to understand and process natural language.
 
